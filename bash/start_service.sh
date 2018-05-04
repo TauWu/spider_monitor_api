@@ -9,5 +9,5 @@ ps -ef | grep api\_main\.py | awk {'print $2'} | xargs kill -s 9
 ps -ef | grep hook\.py | awk {'print $2'} | xargs kill -s 9
 
 # Start Process
-python3 ./api_main.py >> api_main.log
-python3 ./extra/hook.py >> hook.log
+python3 ./api_main.py >> api_main.log &
+python3 ./extra/hook.py >> hook.log &
