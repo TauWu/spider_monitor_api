@@ -13,10 +13,7 @@ def index():
 
 @app.route('/', methods=['POST'])
 def commit():
-    payload = request.form.get('Payload')
-    if not payload:
-        return "Missing form variable 'Payload'"
-    payload = json.loads(payload)
+    payload = {"repository":{"name":"spider_monitor_api"}}
     reponame = payload['repository']['name']
     reponame = "%s/bash"%reponame
     
