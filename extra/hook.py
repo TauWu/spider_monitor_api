@@ -20,7 +20,7 @@ def commit():
     repodir = os.path.join(GITROOT, reponame)
     os.chdir(repodir)
 
-    process = subprocess.call("sh start_service.sh", shell=True)
+    process = subprocess.call("nohup sh start_service.sh &", shell=True)
     
     return 'success.'
 
