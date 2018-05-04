@@ -13,14 +13,18 @@ def index():
 
 @app.route('/', methods=['POST'])
 def commit():
-    payload = request.form.get('payload')
+    payload = request.form.get('Payload')
     if not payload:
-        return "Missing form variable 'payload'"
+        return "Missing form variable 'Payload'"
     payload = json.loads(payload)
     reponame = payload['repository']['name']
+    reponame = "%s/bash"%reponame
+    
     repodir = os.path.join(GITROOT, reponame)
-        
+    os.chdir(repodir)
 
+    process = subprocess.call("sh start_service.sh", shell=True)
+    
     return 'success.'
 
 application = app # For WSGI
