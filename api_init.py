@@ -45,6 +45,7 @@ def get_config():
     print("开始配置Redis连接...")
     idx = 0
     while True:
+        idx += 1
         flag = input("添加数据库信息？(Y/N)")
         if flag == "Y":
             redis_host = input("请输入Redis的host（跳过为localhost）")
