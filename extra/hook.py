@@ -3,6 +3,8 @@ import os, os.path
 import json
 import subprocess
 from flask import Flask, request, redirect, abort
+from time import sleep
+
 app = Flask(__name__)
 
 GITROOT = '/home/ubuntu/service/'
@@ -21,7 +23,8 @@ def commit():
     os.chdir(repodir)
 
     os.system("./start_service.sh")
-    
+    sleep(10)
+
     return 'success.'
 
 application = app # For WSGI
