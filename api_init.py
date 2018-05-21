@@ -41,13 +41,13 @@ def get_config():
             break
             
     # Redis配置
-    # BasicInfo Redis
-    print("开始配置Redis连接...")
     idx = 0
+    print("开始配置Redis连接...")
     while True:
         idx += 1
-        flag = input("添加数据库信息？(Y/N)")
+        flag = input("添加Redis信息？(Y/N)")
         if flag == "Y":
+            print("开始配置Redis%d...", idx)
             redis_host = input("请输入Redis的host（跳过为localhost）")
             if len(redis_host) == 0:
                 redis_host = "127.0.0.1"
@@ -62,6 +62,35 @@ def get_config():
             yield {
                 "rds%d"%idx: dict(
                     host=redis_host, port=redis_port, db=redis_db
+            )}
+        else:
+            break
+
+    # HTTP请求配置
+    idx = 0
+    print("开始配置HTTP API...")
+    while True:
+        idx += 1
+        print("开始配置HTTP API%d..."%idx)
+        flag = input("添加HTTP API信息？(Y/N)")
+        if flag == "Y":
+            http_host = input("请输入HTTP请求的URL（跳过为http://0.0.0.0）")
+            if len(http_host) == 0:
+                http_host = "http://0.0.0.0"
+            http_port = input("请输入HTTP API端口号（跳过为80）")
+            if len(http_port) == 0:
+                http_port = "80"
+            http_port = int(http_port)
+            http_handler = input("请输入HTTP API的Handler（跳过为/）")
+            if len(http_handler) == 0:
+                http_handler = ""
+            http_method = input("请输入HTTP API的请求方式（跳过为GET）")
+            if len(http_method) == 0:
+                http_method = "GET"
+
+            yield {
+                "api%d"%idx: dict(
+                    url="%s:%d/%s"%(http_host, http_port, http_handler), method=http_method
             )}
         else:
             break
